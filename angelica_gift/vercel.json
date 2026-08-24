@@ -1,4 +1,5 @@
 {
+    "outputDirectory": "dist/angelica_gift/browser",
     "rewrites": [
         {
             "source": "/(.*)",
