@@ -1,0 +1,65 @@
+<div class="container">
+  @if (!isFinished()) {
+  <!-- Added click to skip for debug purposes -->
+  <div class="header" (click)="skipCountdown()">
+    <h1>Aspettando la Mezzanotte...</h1>
+    <p>25 Agosto 2026</p>
+  </div>
+
+  <div class="countdown-wrapper">
+    <div class="time-box">
+      <div class="number">{{ days() }}</div>
+      <div class="label">Giorni</div>
+    </div>
+    <div class="time-box">
+      <div class="number">{{ hours() }}</div>
+      <div class="label">Ore</div>
+    </div>
+    <div class="time-box">
+      <div class="number">{{ minutes() }}</div>
+      <div class="label">Minuti</div>
+    </div>
+    <div class="time-box">
+      <div class="number">{{ seconds() }}</div>
+      <div class="label">Secondi</div>
+    </div>
+  </div>
+
+  <div class="rose-section">
+    <div class="rose-emoji" [class.bloomed]="waterLevel() === 100">
+      {{ roseEmoji() }}
+    </div>
+
+    <div class="progress-bar">
+      <div class="progress-fill" [style.width]="progressPercent()"></div>
+    </div>
+
+    <button class="water-btn" (click)="waterPlant()" [disabled]="!canWater()">
+      {{ canWater() ? '💦 Annaffia la Rosa' : '🌹 Rosa sbocciata!' }}
+    </button>
+  </div>
+  } @else {
+  <div class="carousel-header">
+    <h1>Sorpresa!</h1>
+    <p>Buon 25 Agosto ❤️</p>
+  </div>
+
+  <div class="carousel-container">
+    <div class="carousel-spinner" [style.animation-play-state]="selectedImage() ? 'paused' : 'running'">
+      @for (img of images; track $index) {
+      <div class="glass-card" [style.transform]="'rotateY(' + ($index * 30) + 'deg) translateZ(280px)'"
+        (click)="selectImage(img)">
+        <img [src]="img" alt="Ricordo">
+      </div>
+      }
+    </div>
+  </div>
+
+  @if (selectedImage()) {
+  <div class="image-modal" (click)="closeImage()">
+    <button class="close-btn" (click)="closeImage()">X</button>
+    <img [src]="selectedImage()" alt="Foto a tutto schermo">
+  </div>
+  }
+  }
+</div>
